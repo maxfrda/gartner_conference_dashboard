@@ -1,24 +1,60 @@
-# README
+# Gartner Conference Dashboard
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application is meant to mirror Gartner's conference dashboard at https://www.gartner.com/en/conferences/calendar
 
-Things you may want to cover:
+It uses Ruby on Rails as the backend api and React.js for the front-end.
 
-* Ruby version
+Currently, the functionality supports showing a list of conferences, viewing a conference, and adding a conference.
 
-* System dependencies
+## Instructions:
 
-* Configuration
+Clone Repo
+```
+git clone git@github.com:maxfrda/gartner_conference_dashboard.git
+```
+swith to repo
+```
+cd gartner_conference_dashboard
+```
 
-* Database creation
+install gems
+```
+bundle install
+```
 
-* Database initialization
+create, migrate, and populate database
+```
+rails db:create && rails db:migrate && rails db:seed
+```
 
-* How to run the test suite
+start rails server
+```
+rails s
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+switch to react app in new window
+```
+cd frontend
+```
 
-* Deployment instructions
+install packages
+```
+npm install
+```
 
-* ...
+create .env
+```
+touch .env
+```
+```
+add REACT_APP_API_BASE_URL=http://localhost:3000/api/v1 to .env
+```
+Start react server
+```
+npm start
+```
+
+
+You should see a list of conferences and have the ability to add them
+
+![Gartner](https://github.com/user-attachments/assets/b9bec2f0-d6b0-4f1f-a658-533c80098296)
