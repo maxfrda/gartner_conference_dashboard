@@ -17,7 +17,7 @@ function App() {
       </div>
     </header>
     <main className="py-8">
-      <div className="container mx-auto">
+      <div>
         <Routes>
           <Route path="/conferences/:id" element={<ConferenceDetail />} />
           <Route path="/" element={<ConferenceList />} />
