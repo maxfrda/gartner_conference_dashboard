@@ -13,8 +13,10 @@ Conference.destroy_all
     title: Faker::Book.title,  # Using Book titles as conference titles
     date: Faker::Date.between(from: '2024-09-01', to: '2024-12-31'),
     location: "#{Faker::Address.city}, #{Faker::Address.state_abbr}",
-    description: Faker::Lorem.paragraph(sentence_count: 5)
+    description: Faker::Lorem.paragraph(sentence_count: 10),
+    subtitle: Conference.generate_subtitle
   )
 end
 
 puts "Created #{Conference.count} conferences."
+
