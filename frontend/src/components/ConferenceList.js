@@ -1,12 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { formatDate } from '../utils/dateUtils'; // Import the utility function
+import ConferenceModal from './ConferenceModal';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 
 const ConferenceList = () => {
   const [conferences, setConferences] = useState([]);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleAddConferenceClick = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleSaveConference = async (newConference) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/conferences`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ conference: newConference }),
+      });
+  
+      if (response.ok) {
+        const savedConference = await response.json();
+        setConferences([...conferences, savedConference]);
+      } else {
+        const errorData = await response.json();
+        console.error('Error saving conference:', errorData.errors);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   useEffect(() => {
     fetch(`${API_BASE_URL}/conferences`)
@@ -62,6 +94,11 @@ const ConferenceList = () => {
 </div>
     <div className="space-y-6 px-64 py-24 ">
     <h2 className="text-5xl font-semibold text-gray-800 mb-4">Find your conference</h2>
+    <button className="bg-custom-blue text-white px-6 py-2 rounded-md hover:bg-blue-700" 
+    onClick={handleAddConferenceClick}
+>
+        Add Conference
+      </button>
     <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {conferences.map((conference) => (
         <li 
@@ -90,6 +127,11 @@ const ConferenceList = () => {
       ))}
     </ul>
   </div>
+  <ConferenceModal 
+        isOpen={isModalOpen} 
+        onClose={handleCloseModal} 
+        onSave={handleSaveConference} 
+      />
     </>
 
   );

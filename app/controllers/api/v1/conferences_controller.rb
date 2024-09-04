@@ -17,14 +17,14 @@ module Api
     
       # POST /conferences
       def create
-        @conference = Conference.new(conference_params)
-    
-        if @conference.save
-          render json: @conference, status: :created, location: @conference
+        conference = Conference.new(conference_params)
+        if conference.save
+          render json: conference, status: :created
         else
-          render json: @conference.errors, status: :unprocessable_entity
+          render json: { errors: conference.errors.full_messages }, status: :unprocessable_entity
         end
       end
+    
     
       # PATCH/PUT /conferences/1
       def update
@@ -48,7 +48,7 @@ module Api
     
         # Only allow a list of trusted parameters through.
         def conference_params
-          params.require(:conference).permit(:title, :description, :location, :date)
+          params.require(:conference).permit(:title, :description, :location, :date, :subtitle)
         end
     end
     
