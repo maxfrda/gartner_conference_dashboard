@@ -66,7 +66,8 @@ const ConferenceList = () => {
       {conferences.map((conference) => (
         <li 
           key={conference.id} 
-          className="bg-white rounded-lg shadow-md overflow-hidden min-h-[185px] min-w-[280px] flex flex-col justify-between"
+          className="bg-white rounded-lg shadow-md overflow-hidden min-h-[185px] min-w-[280px] flex flex-col justify-between hover:bg-gray-200"
+
         >
           <Link 
             to={`/conferences/${conference.id}`} 
